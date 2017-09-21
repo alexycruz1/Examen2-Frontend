@@ -23,23 +23,23 @@
 
   	<div class="ui inverted large menu" v-show = "logged">
   		<div class="ui inverted secondary pointing menu">
-    		<router-link to = "/home">
+    		<router-link to = "/">
         <a class="item">
       			Inicio
     		</a>
         </router-link>
-        <router-link to = "/profile">
+        <router-link to = "/">
           <a class="item">
             Perfil
           </a>
         </router-link>
-        <router-link to = "/assesors" v-if = "!assesor">
+        <router-link to = "/" v-if = "!assesor">
           <a class="item" >
             Asesores Disponibles
           </a>
         </router-link>
     		
-        <router-link to = "/requests" v-else-if = "assesor">
+        <router-link to = "/" v-else-if = "assesor">
           <a class = "item" >
             Solicitudes
           </a>
@@ -52,28 +52,28 @@
       			<div class="ui inverted menu">
                 
                 <a class = "item">
-                  <router-link to = '/groups'>
+                  <router-link to = '/'>
                     <div class = "ui black tag label">
                       Grupos
                     </div>
                     </router-link>
                 </a>
                 <a class = "item">
-                  <router-link to = '/events'>
+                  <router-link to = '/'>
                     <div class = "ui black tag label">
                       Eventos
                     </div>
                     </router-link>
                 </a>
                 <a class = "item">
-                  <router-link to = '/tasks'>
+                  <router-link to = '/'>
                     <div class = "ui black tag label">
                       Tareas
                     </div>
                     </router-link>
                 </a>
                 <a class = "item">
-                  <router-link to = '/messages'>
+                  <router-link to = '/'>
                     <div class = "ui black tag label">
                       Mensajes
                     </div>
@@ -128,16 +128,12 @@
 
 <script>
 import personService from './services/personServices'
-console.log('Storage: ', localStorage.getItem('logged'));
-localStorage.setItem('logged',false);
 export default {
   name: 'app',
   data(){
   	return {
-  		logged:  JSON.parse(localStorage.getItem('logged')), 
-  		assesor: JSON.parse(localStorage.getItem('isAdviser')),
-      allSessions: [],
-      allUsers: []
+      allUsers: [],
+      logged: Boolean
   	}
   },
   methods: {
@@ -169,14 +165,6 @@ export default {
         if(res){
           this.logged = true;
           localStorage.setItem('logged', true);
-          this.$router.push({path: "/home"});
-          for(let i = 0; i < this.allUsers.length; i++){
-            if(this.allUsers[i].username === this.username){
-              localStorage.setItem('idUser', this.allUsers[i].IDPerson);
-              localStorage.setItem('isAdviser', this.allUsers[i].isAdviser);
-              this.assesor = this.allUsers[i].isAdviser;
-            }
-          }
         }else{
           console.log('Contraseña incorrecta');
         }
@@ -186,19 +174,6 @@ export default {
         localStorage.setItem('logged', false);
         localStorage.setItem('isAdviser', false);
       }
-  },
-  beforeCreate(){
-    console.log('create');
-    personService.getPeople().then(response =>{
-      
-        localStorage.setItem('logged', false);
-        localStorage.setItem('isAdviser', false);
-          for(let i = 0; i < response.body.length; i++){
-            this.allUsers.push(response.body[i]);
-          }
-        }, response =>{
-          alert('Error');
-        });
   }
 }
 </script>
