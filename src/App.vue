@@ -23,65 +23,21 @@
 
   	<div class="ui inverted large menu" v-show = "logged">
   		<div class="ui inverted secondary pointing menu">
-    		<router-link to = "/home">
+    		<router-link to = "/bombs">
         <a class="item">
-      			Inicio
+      			Eventos
     		</a>
         </router-link>
         <router-link to = "/profile">
-          <a class="item">
-            Perfil
-          </a>
         </router-link>
         <router-link to = "/assesors" v-if = "!assesor">
-          <a class="item" >
-            Asesores Disponibles
-          </a>
         </router-link>
     		
         <router-link to = "/requests" v-else-if = "assesor">
-          <a class = "item" >
-            Solicitudes
-          </a>
         </router-link>
     		
 
-    		<div class="right menu">
-    			<div  id = "dropMenu" class="ui pointing dropdown link item" >
-      				Actividades <i class="dropdown icon" v-on:click = "showMenu()"></i>
-      			<div class="ui inverted menu">
-                
-                <a class = "item">
-                  <router-link to = '/groups'>
-                    <div class = "ui black tag label">
-                      Grupos
-                    </div>
-                    </router-link>
-                </a>
-                <a class = "item">
-                  <router-link to = '/events'>
-                    <div class = "ui black tag label">
-                      Eventos
-                    </div>
-                    </router-link>
-                </a>
-                <a class = "item">
-                  <router-link to = '/tasks'>
-                    <div class = "ui black tag label">
-                      Tareas
-                    </div>
-                    </router-link>
-                </a>
-                <a class = "item">
-                  <router-link to = '/messages'>
-                    <div class = "ui black tag label">
-                      Mensajes
-                    </div>
-                    </router-link>
-                </a>
-      				</div>
-    			  </div>
-   			 </div>
+    		
 
           <router-link to = "/">
           <a class="item active" v-on:click = "ChangeSession()">
